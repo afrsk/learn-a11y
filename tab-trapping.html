@@ -97,15 +97,35 @@
         }
       };
 
-      const openModal = () => {
-        modalOverlay.hidden = false;
 
-        // Focus the first input in the modal
-        const focusableElements = getFocusableElements();
-        if (focusableElements.length > 0) {
-          focusableElements[0].focus();
+      // Focus the first input in the modal
+      const focusableElements = getFocusableElements();
+      if (focusableElements.length > 0) {
+        focusableElements[0].focus();
+      }
+
+      const firstFocusableElements = focusableElements[0];
+      const lastFocusableElements = focusableElements[focusableElements.length-1];
+
+      const handleTabKey = (e) =>{
+        if (e.shiftKey && e.key === "Tab"){
+          if(document.activeElement===firstFocusableElements){
+            lastFocusableElements.focus();
+            e.preventDefault();
+          }
         }
 
+        else{
+          if(e.key === "Tab" && document.activeElement===lastFocusableElements){
+            firstFocusableElements.focus();
+            e.preventDefault();
+          }
+        }
+      }
+
+      const openModal = () => {
+        modalOverlay.hidden = false;
+        document.body.style.overflow = 'hidden'; 
         // Add event listeners
         document.addEventListener("keydown", handleTabKey);
         document.addEventListener("keydown", handleEscapeKey);
@@ -113,7 +133,7 @@
 
       const closeModal = () => {
         modalOverlay.hidden = true;
-
+        document.body.style.overflow = ''; 
         // Remove event listeners
         document.removeEventListener("keydown", handleTabKey);
         document.removeEventListener("keydown", handleEscapeKey);
