@@ -42,14 +42,14 @@
           <h2>Example to Fix</h2>
           <!-- Non-semantic website example -->
           <div class="practice-area">
-            <div class="header">
-              <span class="title">My Website</span>
-            </div>
+            <header class="header">
+              <h1 class="title">My Website</h1>
+              </header>
 
             <div class="nav">
-              <div>Home</div>
-              <div>About</div>
-              <div>Contact</div>
+              <button aria-label="Home">Home</button>
+              <button aria-label="About">About</button>
+              <button aria-label="Contact">Contact</button>
             </div>
 
             <div class="main-content">
@@ -66,25 +66,25 @@
               <div class="form-container">
                 <div class="form-title">Contact Us</div>
                 <div>
-                  <span>Name:</span>
-                  <input type="text" />
+                  <span id="Name">Name:</span>
+                  <input type="text" aria-labelledby="Name" />
                 </div>
                 <div>
-                  <span>Email:</span>
-                  <input type="text" />
+                  <span id="Email">Email:</span>
+                  <input type="text" aria-labelledby="Email"  />
                 </div>
                 <div>
-                  <span>Message:</span>
-                  <input type="text" />
+                  <span id="Text">Message:</span>
+                  <input type="text" aria-labelledby="Text"/>
                 </div>
                 <div>
-                  <span>Subscribe to Newsletter</span>
-                  <input type="checkbox" />
+                  <span id="Checkbox">Subscribe to Newsletter</span>
+                  <input type="checkbox" aria-labelledby="Checkbox" />
                 </div>
                 <div>
-                  <div onclick="alert('Form submitted!')" class="submit-button">
+                  <button onclick="alert('Form submitted!')" class="submit-button" aria-label="Submit">
                     Submit Form
-                  </div>
+                  </button>
                 </div>
               </div>
             </div>

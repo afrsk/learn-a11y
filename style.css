@@ -214,6 +214,9 @@ article {
   background-color: #dee2e6;
   transform: translateY(-1px);
 }
+button:focus-visible {
+  outline: 2px solid blue;
+}
 
 .button:focus {
   outline: 2px solid #3498db;
