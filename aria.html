@@ -33,19 +33,19 @@
             <div class="match">
               <div class="match-header">
                 <span class="league">Premier League</span>
-                <span class="match-time">72'</span>
+                <span class="match-time" >72'</span>
               </div>
               <div class="teams">
                 <div class="team">
                   <span class="team-name">Crystal Phoenixes</span>
-                  <span class="score" id="team1-score">2</span>
+                  <span class="score" id="team1-score" >2</span>
                 </div>
                 <div class="team">
                   <span class="team-name">Royal Lions FC</span>
-                  <span class="score" id="team2-score">1</span>
+                  <span class="score" id="team2-score" >1</span>
                 </div>
               </div>
-              <div class="match-status" id="match1-status">
+              <div class="match-status" id="match1-status" aria-live="assertive">
                 Latest: Goal! Crystal Phoenixes score in the 70th minute!
               </div>
             </div>
@@ -54,19 +54,19 @@
             <div class="match">
               <div class="match-header">
                 <span class="league">Champions Cup</span>
-                <span class="match-time">54'</span>
+                <span class="match-time" >54'</span>
               </div>
               <div class="teams">
                 <div class="team">
                   <span class="team-name">Stellar United</span>
-                  <span class="score" id="team3-score">0</span>
+                  <span class="score" id="team3-score" >0</span>
                 </div>
                 <div class="team">
                   <span class="team-name">Atlas Warriors</span>
-                  <span class="score" id="team4-score">0</span>
+                  <span class="score" id="team4-score" >0</span>
                 </div>
               </div>
-              <div class="match-status" id="match2-status">
+              <div class="match-status" id="match2-status" aria-live="assertive">
                 Latest: Yellow card shown to Atlas Warriors defender
               </div>
             </div>
@@ -87,7 +87,7 @@
                   <span class="score" id="team6-score">3</span>
                 </div>
               </div>
-              <div class="match-status" id="match3-status">
+              <div class="match-status" id="match3-status" aria-live="assertive">
                 Latest: 4 minutes of added time announced
               </div>
             </div>
@@ -109,6 +109,9 @@
             </ol>
           </div>
         </div>
+
+        <div id="score-announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
       </section>
     </main>
 
@@ -201,10 +204,24 @@
         ).textContent = `Latest: ${event.status}`;
 
         // Update scores
-        document.getElementById(`team${matchNum * 2 - 1}-score`).textContent =
-          event.scores[0];
-        document.getElementById(`team${matchNum * 2}-score`).textContent =
-          event.scores[1];
+        let scoreUpdate = document.getElementById(`team${matchNum * 2 - 1}-score`);
+        let scoreUpdate2 = document.getElementById(`team${matchNum * 2}-score`);
+        let teamName1 = scoreUpdate.parentElement.querySelector(".team-name").textContent;
+        let teamName2 = scoreUpdate2.parentElement.querySelector(".team-name").textContent;
+        let timeUpdate = document.querySelector(`.match:nth-child(${matchNum}) .match-time`).textContent = event.time;
+        scoreUpdate.textContent = event.scores[0];
+        scoreUpdate2.textContent= event.scores[1];
+        
+
+
+
+        let announcer = document.getElementById("score-announcer");
+        announcer.textContent = `${teamName1}:${event.scores[0]} ${teamName2}:${event.scores[1]} Match time ${timeUpdate}.`
+
+        // document.getElementById(`team${matchNum * 2 - 1}-score`).textContent =
+        //   event.scores[0];
+        // document.getElementById(`team${matchNum * 2}-score`).textContent =
+        //   event.scores[1];
 
         // Update last update time
         const now = new Date();
