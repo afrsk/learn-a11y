@@ -102,7 +102,7 @@
       <!-- Missing alt text -->
       <div class="hero">
         <img src="https://picsum.photos/800/400" width="800" height="400" alt="hero-image" />
-        <div onclick="alert('clicked!')" style="cursor: pointer">
+        <div id="clickMore" style="cursor: pointer" tabindex="0">
           Click here to learn more
         </div>
       </div>
@@ -126,7 +126,7 @@
           <div style="color: #4f4f4f">Description of feature 1 goes here</div>
           <div
             onclick="location.href='#'"
-            style="color: blue; text-decoration: underline; cursor: pointer"
+            style="color: blue; text-decoration: underline; cursor: pointer" tabindex="0"
           >
             Learn more
           </div>
@@ -138,7 +138,7 @@
           <div style="color: #4f4f4f">Description of feature 2 goes here</div>
           <div
             onclick="location.href='#'"
-            style="color: blue; text-decoration: underline; cursor: pointer"
+            style="color: blue; text-decoration: underline; cursor: pointer" tabindex="0"
           >
             Learn more
           </div>
@@ -150,7 +150,7 @@
           <div style="color: #4f4f4f">Description of feature 3 goes here</div>
           <div
             onclick="location.href='#'"
-            style="color: blue; text-decoration: underline; cursor: pointer"
+            style="color: blue; text-decoration: underline; cursor: pointer" tabindex="0"
           >
             Learn more
           </div>
@@ -172,7 +172,7 @@
         </div>
         <div style="margin-top: 1rem">
           <div
-            onclick="alert('Subscribed!')"
+            id="subscribeNow"
             style="
               background: #3498db;
               color: #1b1b1b;
@@ -180,6 +180,7 @@
               display: inline-block;
               cursor: pointer;
             "
+            tabindex="0"
           >
             SUBSCRIBE NOW
           </div>
@@ -206,20 +207,71 @@
 
       const menuBtn = document.querySelector(".menu-button");
       const menuItem = document.querySelector(".mobile-menu");
-      function toggleMenu(){
-        menuItem.classList.toggle("active");
+
+      function openMenu(){
+        menuItem.classList.add("active");
       }
+
+      function closeMenu(){
+        menuItem.classList.remove("active");
+      }
+
+      function toggleMenu(){
+
+        if (menuItem.classList.contains("active"))closeMenu();
+        else openMenu();
+      }
+
+
       menuBtn.addEventListener('click',toggleMenu); 
       menuBtn.addEventListener('keyup',(event)=>{
         if(event.key==='Enter'||event.key===' '){
           toggleMenu();
+        } else if (e.key === 'Escape') {
+          closeMenu();
         }
       });
 
-      const mobileMenuItem = document.querySelector(".mobile-menu-item");
-      if(document.activeElement !== mobileMenuItem){
-        menuItem.classList.remove("active");
+
+
+      document.addEventListener('focusin', (e) => {
+        // if the newly focused element is neither inside the menu nor the button, close
+        if (!menuItem.contains(e.target) && !menuBtn.contains(e.target)) {
+          closeMenu();
+        }
+      });
+
+
+      //Click here to learn more
+      const clickMore = document.getElementById("clickMore");
+      function clickMe(){
+        alert("clicked!");
       }
+
+      clickMore.addEventListener('click',(clickMe));
+      clickMore.addEventListener('keyup',(e)=>{
+        if(e.key=="Enter"||e.key==" "){
+          clickMe();
+        }
+      })
+
+
+      //subscribeNow
+      const subscribenow = document.getElementById("subscribeNow");
+
+      function clickSubscribe(){
+        alert('Subscribed!')
+      }
+      subscribenow.addEventListener('click',clickSubscribe);
+      subscribenow.addEventListener('keyup',(e)=>{
+        if(e.key==="Enter"||e.key===" "){
+          clickSubscribe();
+        }
+      })
+
+
+
+
       
     </script>
   </body>
